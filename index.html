@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juridik inför provet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f6f9;--surface:#ffffff;--ink:#172036;--muted:#596276;--line:#d9dee8;
+  --blue:#24427c;--blue-soft:#e7ecf6;--red:#cc2238;--mark:rgba(220,36,58,.22);
+  --ok:#1d7448;--ok-soft:#e1f2e8;--bad:#ad2a22;--bad-soft:#fae6e3;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#10151e;--surface:#18202c;--ink:#e7eaf1;--muted:#9ba4b6;--line:#2b3546;
+  --blue:#93b2ec;--blue-soft:#1e2a42;--red:#ff6b7c;--mark:rgba(255,92,112,.30);
+  --ok:#62cb94;--ok-soft:#163226;--bad:#ff8b80;--bad-soft:#3a1d1c;}}
+:root[data-theme="dark"]{
+  --paper:#10151e;--surface:#18202c;--ink:#e7eaf1;--muted:#9ba4b6;--line:#2b3546;
+  --blue:#93b2ec;--blue-soft:#1e2a42;--red:#ff6b7c;--mark:rgba(255,92,112,.30);
+  --ok:#62cb94;--ok-soft:#163226;--bad:#ff8b80;--bad-soft:#3a1d1c;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 64px}
+header{padding:28px 0 8px;display:flex;gap:16px;align-items:center}
+.para{font:700 64px/0.8 var(--serif);color:var(--red);flex:none;margin-top:-4px}
+h1{font:700 clamp(26px,5vw,34px)/1.1 var(--serif);margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:4px 0 0;font-size:15px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin:12px -18px 20px;padding:10px 18px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;border:0;background:none;color:var(--muted);font:700 15px var(--sans);padding:8px 12px;border-radius:999px;cursor:pointer}
+nav button[aria-current="true"]{background:var(--ink);color:var(--paper)}
+h2{font:700 26px/1.2 var(--serif);margin:4px 0 14px}
+h3{font:700 19px/1.3 var(--serif);margin:26px 0 8px}
+p{margin:0 0 12px;max-width:68ch}
+.muted{color:var(--muted)}
+.hl{font-weight:700;background:linear-gradient(transparent 58%,var(--mark) 58%);padding:0 1px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:15px var(--sans);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:700}
+.btn{border:0;background:var(--blue);color:var(--paper);font:700 16px var(--sans);padding:11px 18px;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.small{padding:7px 12px;font-size:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px 8px;margin-bottom:16px}
+.tip{border-left:4px solid var(--red);background:var(--surface);padding:12px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+.tip strong{color:var(--red)}
+ul.plain{padding-left:20px;margin:0 0 12px}ul.plain li{margin-bottom:6px}
+textarea{width:100%;min-height:90px;font:16px/1.5 var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical}
+select{font:16px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px;max-width:100%}
+label.check{display:flex;gap:10px;align-items:flex-start;margin:6px 0;cursor:pointer}
+label.check input{margin-top:5px;width:18px;height:18px;accent-color:var(--ok)}
+/* overview */
+.topic{display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;color:var(--ink);font:16px var(--sans)}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
+.pct{font-size:13px;color:var(--muted);text-align:right;margin-top:3px}
+/* flashcard */
+.card{width:100%;min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;cursor:pointer;color:var(--ink);font:inherit;margin-bottom:14px}
+.card .term{font:700 clamp(26px,6vw,36px)/1.2 var(--serif)}
+.card .term span{background:linear-gradient(transparent 60%,var(--mark) 60%)}
+.card .def{font-size:18px;max-width:52ch}
+.card .ex{color:var(--muted);font-size:15px;margin-top:10px}
+.badge{font-size:13px;font-weight:700;color:var(--red);margin-bottom:10px}
+.card .hint{color:var(--muted);font-size:14px;margin-top:16px}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rate button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 15px var(--sans);padding:12px 6px;border-radius:10px;cursor:pointer}
+.rate .r0{border-color:var(--bad);color:var(--bad)}.rate .r2{border-color:var(--ok);color:var(--ok)}
+/* quiz */
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:16px/1.4 var(--sans);padding:12px 14px;border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.why{padding:12px 14px;border-radius:10px;background:var(--blue-soft);margin:6px 0 14px}
+.progress{height:4px;background:var(--line);border-radius:2px;margin-bottom:16px}.progress i{display:block;height:100%;background:var(--red);border-radius:2px}
+/* sort */
+.ord{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px}
+.ord .n{font:700 15px var(--serif);color:var(--muted);width:22px}
+.ord span.t{flex:1}
+.ord button{border:1px solid var(--line);background:var(--paper);color:var(--ink);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px}
+.ord.right,.tok.right{border-color:var(--ok);background:var(--ok-soft)}
+.ord.wrong,.tok.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;padding:10px;border:1.5px dashed var(--line);border-radius:12px;margin-bottom:14px}
+.tok{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:15px var(--sans);padding:7px 11px;border-radius:8px;cursor:pointer;text-align:left}
+.tok.sel{border-color:var(--red);box-shadow:0 0 0 2px var(--mark)}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+.bucket{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px;min-height:110px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.bucket.target{border-color:var(--red)}
+.bucket b{font:700 16px var(--serif)}
+.match{display:grid;grid-template-columns:1fr;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
+.match.right select{border-color:var(--ok);background:var(--ok-soft)}.match.wrong select{border-color:var(--bad);background:var(--bad-soft)}
+.list button.item{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;color:var(--ink);font:16px var(--sans)}
+.list .item small{display:block;color:var(--muted)}
+/* irac */
+.irac{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 18px}
+.irac b{font:700 30px/1 var(--serif);color:var(--red)}
+.step{margin-bottom:18px}
+.step .lbl{font:700 17px var(--serif);margin-bottom:6px}
+.model{display:none;margin-top:8px;padding:10px 14px;background:var(--blue-soft);border-radius:10px}
+.show .model{display:block}
+.case{font-size:17px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+table{border-collapse:collapse;width:100%;margin:10px 0 16px}td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.big{font:700 54px/1 var(--serif)}
+footer{color:var(--muted);font-size:14px;margin-top:40px}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .25s}.card:active{transform:scale(.99)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="para" aria-hidden="true">§</div>
+  <div><h1>Juridik inför provet</h1><p class="sub">Elsas träning: läs, öva begrepp, testa dig.</p></div>
+</header>
+<nav id="nav" aria-label="Lägen"></nav>
+<main id="view"></main>
+<footer>Sidorna 14, 16–23 och 36–37 följer bokens formuleringar. Övrigt bygger på allmän svensk juridik.</footer>
+</div>
+
+<script>
+/* ===================== INNEHÅLL ===================== */
+const TOPICS=[
+{id:"begrepp",name:"Viktiga begrepp"},
+{id:"grundlagar",name:"Grundlagarna"},
+{id:"rattsstat",name:"Rättsstatens principer"},
+{id:"hierarki",name:"Rättsordning och hierarki"},
+{id:"styrning",name:"Hur Sverige styrs"},
+{id:"rattigheter",name:"Fri- och rättigheter"},
+{id:"lagstiftning",name:"Lagstiftningsprocessen"},
+{id:"tvingande",name:"Tvingande och dispositiva lagar"},
+{id:"allmanna",name:"Allmänna domstolar"},
+{id:"forvaltning",name:"Förvaltningsdomstolar"},
+{id:"norm",name:"Norm eller lag"},
+{id:"rattssakerhet",name:"Rättsmedvetande och rättssäkerhet"},
+{id:"irac",name:"Juridisk metod: IRAC"},
+{id:"rattskallor",name:"Rättskällor"}
+];
+
+const READ={
+grundlagar:{p:[
+"Sverige har fyra grundlagar: <span class=hl>regeringsformen (RF)</span>, <span class=hl>successionsordningen (SO)</span>, <span class=hl>tryckfrihetsförordningen (TF)</span> och <span class=hl>yttrandefrihetsgrundlagen (YGL)</span>. De står högst i rättsordningen. Ingen annan lag får strida mot dem.",
+"<b>RF</b> är den viktigaste. Den slår fast att all offentlig makt utgår från folket och beskriver hur riksdag, regering, domstolar och myndigheter fungerar. I kapitel 2 finns våra grundläggande fri- och rättigheter.",
+"<b>SO</b> reglerar tronföljden, alltså vem som blir kung eller drottning. <b>TF</b> skyddar det tryckta ordet och innehåller <span class=hl>offentlighetsprincipen</span>: rätten att ta del av allmänna handlingar. <b>YGL</b> skyddar yttrandefriheten i radio, tv, film, webbplatser och liknande medier.",
+"<b>Så ändras en grundlag:</b> Riksdagen måste fatta två <span class=hl>likalydande beslut</span> med ett allmänt riksdagsval emellan. Det ska gå minst nio månader från att förslaget lämnas in till valet. Det första beslutet kallas vilande. Efter valet röstar den nyvalda riksdagen igen.",
+"Det går också att hålla en <b>folkomröstning</b> om ett grundlagsförslag, samtidigt med valet. Det har än så länge aldrig skett. Röstar en majoritet nej faller förslaget.",
+"<b>Varför är det svårt?</b> Grundlagarna skyddar demokratin och våra rättigheter. Kravet på två beslut med val emellan gör att en tillfällig majoritet inte snabbt kan avskaffa till exempel fria val eller yttrandefriheten. Medborgarna får möjlighet att rösta för eller emot förändringen i riksdagsvalet, och det blir tid för debatt och eftertanke.",
+"<b>Riksdagsordningen (RO)</b> innehåller regler om riksdagens arbete. Den är inte en grundlag men har högre rang än en vanlig lag, ett mellanting mellan grundlag och lag."],
+tip:"Kunna de fyra grundlagarna med förkortning, vad var och en handlar om, och regeln om två likalydande beslut med val emellan, samt varför."},
+rattsstat:{p:[
+"En <span class=hl>rättsstat</span> är ett land där makten utövas enligt lagar som gäller för alla, även för dem som styr. Rättsstatens viktigaste principer:",
+"<span class=hl>Legalitetsprincipen</span>: ”inget straff utan lag och inget brott utan lag”. Ingen får dömas utan stöd i en lag. Den offentliga makten utövas under lagarna (RF 1 kap. 1 §).",
+"<b>Likhet inför lagen</b> (RF 1 kap. 9 §): domstolar och myndigheter ska beakta allas likhet inför lagen och vara sakliga och opartiska.",
+"<span class=hl>Likhetsprincipen</span>: myndigheter som Arbetsförmedlingen, Försäkringskassan och socialtjänsten ska behandla alla lika, oavsett vem man är, nationalitet, utbildning eller inkomst. Exempel: alla som uppfyller lagens krav har rätt till sjukpenning, och alla sjuka ska få vård oavsett om de är rika eller fattiga.",
+"<span class=hl>Objektivitetsprincipen</span>: alla som arbetar på myndigheter ska vara sakliga och opartiska. De får inte ”tycka” något eller ta egen ställning, utan ska bara ta hänsyn till det som har betydelse för ärendet och följa reglerna.",
+"<span class=hl>Maktdelning</span>: makten delas mellan riksdagen (lagstiftande), regeringen (verkställande) och domstolarna (dömande), så att ingen får all makt.",
+"<b>Oberoende domstolar</b>: ingen, inte ens regeringen eller riksdagen, får bestämma hur en domstol ska döma i ett enskilt fall.",
+"<span class=hl>Rättssäkerhet</span>: lagar ska vara tydliga, offentliga och förutsebara. Man har rätt till en rättvis rättegång, till försvar och att överklaga. Offentlighet och fri press gör att makten kan granskas.",
+"<b>Bokens exempel (s. 23):</b> I Danmark har straffen skärpts för brott i vissa bostadsområden som kallas ”getton”. I Sverige skulle sådana beslut strida mot principen om allas likhet inför lagen.",
+"<b>Betydelse:</b> Principerna skyddar den enskilda människan mot godtycke och maktmissbruk. Samma regler gäller alla, och man kan förutse vad som händer. Det skapar förtroende och gör att människor följer lagarna."],
+tip:"Kunna förklara likhetsprincipen och objektivitetsprincipen med bokens exempel, och varför principerna gör rättsstaten trygg för alla."},
+hierarki:{p:[
+"För att ett samhälle ska fungera behövs, förutom sociala och moraliska regler, ett <span class=hl>rättssystem</span>. Det består av lagar och andra regler som medborgarna är skyldiga att följa, så kallade <span class=hl>rättsregler</span>. Bryter man mot en rättsregel kan man drabbas av en <span class=hl>sanktion</span>, det vi kallar straff, till exempel böter, fängelse eller indraget körkort.",
+"Rättsreglerna beslutas i riksdagen och kallas i dagligt tal för lagar. De är <b>nedskrivna</b>, vilket gör det lättare att ta del av dem och veta vad de innebär.",
+"Systemet med rättsregler kallas <span class=hl>rättsordningen</span>. Reglerna har olika hög dignitet, alltså väger olika tungt. Ordningen kallas <span class=hl>normhierarkin</span>: en regel får inte strida mot en regel högre upp. En lag får till exempel inte strida mot grundlagarna.",
+"<b>Den svenska rättsordningen (bokens bild, s. 14):</b><br>1. <b>Grundlagar</b> (RF 8 kap. 14 §)<br>2. <b>Riksdagsordningen</b> (RF 8 kap. 17 §)<br>3. <b>Lagar</b><br>4. <b>Förordningar</b> (RF 8 kap. 7 §)<br>5. <b>Föreskrifter</b> (enligt bemyndigande)",
+"Lagar och förordningar kallas tillsammans <span class=hl>författningar</span>. Föreskrifter kan vara anvisningar från myndigheter eller lokala ordningsregler som kommunfullmäktige beslutar.",
+"Riksdagen beslutar lagar, regeringen beslutar förordningar och myndigheter eller kommuner beslutar föreskrifter."],
+tip:"Kunna de fem nivåerna i rätt ordning, att lag + förordning = författningar, och vad normhierarkin innebär."},
+styrning:{p:[
+"RF 1 kap. 1 §: <b>”All offentlig makt i Sverige utgår från folket.”</b> Sverige har ett demokratiskt styrelseskick som är <span class=hl>representativt</span> och <span class=hl>parlamentariskt</span>.",
+"<b>Representativt</b>: de 349 ledamöterna i riksdagen är folkvalda representanter. Vi har en <span class=hl>folkrepresentation</span>. <b>Parlamentariskt</b>: regeringen måste ha riksdagens förtroende, och en majoritet i riksdagen kan alltid tvinga en regering att avgå.",
+"Vi har <b>allmän och lika rösträtt</b>: alla röster är lika mycket värda och alla myndiga medborgare (18 år) får rösta. Val till riksdag, region- och kommunfullmäktige hålls vart fjärde år vid samma tillfälle. Bara svenska medborgare (även utlandsboende) får rösta i riksdagsvalet. Alla som är bosatta i landet får rösta i region- och kommunvalen.",
+"<span class=hl>Regioner</span> (tidigare landsting) sköter det som inte passar att varje kommun gör själv, till exempel sjukvård och kollektivtrafik. <span class=hl>Kommuner</span> har kommunalt självstyre och sköter till exempel skola, barnomsorg, äldreomsorg, vatten och renhållning. Sverige har 290 kommuner.",
+"RF 1 kap. 2 §: den offentliga makten ska utövas med respekt för <b>alla människors lika värde</b> och den enskilda människans frihet och värdighet. Det är kärnan i den svenska samhällsmodellen.",
+"<b>Riksdagen – <span class=hl>den lagstiftande makten</span></b> (RF 1 kap. 4 §): stiftar lag, beslutar om skatt och hur statens pengar ska användas, och granskar regeringen. Den kontrollerar också att <span class=hl>skattepengarna</span> används som det är beslutat i statsbudgeten.",
+"<b>Regeringen – <span class=hl>den verkställande makten</span></b> (RF 1 kap. 6 §): ”Regeringen styr riket. Den är ansvarig inför riksdagen.” Regeringen genomför riksdagens beslut, ger myndigheterna resurser och instruktioner och kan utfärda förordningar med riksdagens bemyndigande.",
+"<span class=hl>Riksdagens talman</span> har landets högsta valbara ämbete och leder riksdagens arbete. Talmannen föreslår statsminister, riksdagen röstar, och om det inte finns en majoritet emot blir personen statsminister. Statsministern utser sedan ministrarna. Ministrarna är ansvariga inför riksdagen, som kan avsätta en minister genom en <span class=hl>förtroendeomröstning</span>.",
+"<b>Domstolarna – <span class=hl>den dömande makten</span></b> (RF 1 kap. 8 §): de allmänna domstolarna, förvaltningsdomstolarna och specialdomstolarna.",
+"Myndigheter verkställer lagarna och är självständiga i enskilda ärenden; ministerstyre är förbjudet. Statschefen, kungen, har ceremoniella uppgifter men ingen politisk makt."],
+tip:"Kunna förklara representativt och parlamentariskt styrelseskick, och koppla lagstiftande, verkställande och dömande makt till rätt organ."},
+rattigheter:{p:[
+"Fri- och rättigheterna finns i <b>RF 2 kap. 1 §</b>. Var och en är gentemot det allmänna tillförsäkrad:",
+"1. <span class=hl>Yttrandefrihet</span>: frihet att i tal, skrift, bild eller på annat sätt meddela upplysningar och uttrycka tankar, åsikter och känslor.<br>2. <span class=hl>Informationsfrihet</span>: frihet att inhämta och ta emot upplysningar och ta del av andras yttranden.<br>3. <span class=hl>Mötesfrihet</span>: frihet att anordna och delta i sammankomster för upplysning, meningsyttring eller för att framföra konstnärliga verk.<br>4. <span class=hl>Demonstrationsfrihet</span>: frihet att anordna och delta i demonstrationer på allmän plats.<br>5. <span class=hl>Föreningsfrihet</span>: frihet att sammansluta sig med andra för allmänna eller enskilda syften.<br>6. <span class=hl>Religionsfrihet</span>: frihet att ensam eller tillsammans med andra utöva sin religion.",
+"Sverige följer också <span class=hl>Europakonventionen (EKMR)</span>, som är svensk lag sedan 1995. Ingen lag får strida mot EKMR (RF 2 kap. 19 §).",
+"<span class=hl>Absoluta rättigheter</span> får inte begränsas, inte ens genom lag. Exempel: religionsfrihet, förbud mot dödsstraff, tortyr och kroppsstraff, skydd mot att tvingas berätta om sin politiska eller religiösa åsikt, och förbud mot att straffa någon i efterhand.",
+"<span class=hl>Relativa rättigheter</span> får begränsas genom lag, men bara för ändamål som godtas i ett demokratiskt samhälle, aldrig mer än nödvändigt och aldrig så att den fria åsiktsbildningen hotas (RF 2 kap. 21 §). Exempel: yttrandefrihet, informationsfrihet, mötesfrihet, demonstrationsfrihet och föreningsfrihet.",
+"<b>Exempel:</b> Yttrandefriheten begränsas av att hets mot folkgrupp och förtal är brott. Demonstrationsfriheten kan begränsas av hänsyn till ordning och säkerhet.",
+"<b>Vad innebär skillnaden?</b> En absolut rättighet är ett totalt skydd: staten får aldrig göra så. En relativ rättighet är en avvägning mellan individens frihet och andra människors rättigheter eller samhällets säkerhet."],
+tip:"Kunna de sex friheterna i RF 2:1 med förklaring, och sortera rättigheter i absoluta och relativa."},
+lagstiftning:{p:[
+"1. <b>Initiativ.</b> Ett problem uppmärksammas, till exempel av regeringen, en riksdagsledamot, organisationer, media eller medborgare.",
+"2. <b>Kommittédirektiv.</b> Regeringen bestämmer vad som ska utredas.",
+"3. <b>Utredning.</b> Resultatet blir ofta en <span class=hl>SOU</span> (Statens offentliga utredningar) eller en Ds.",
+"4. <b>Remiss.</b> Förslaget skickas till myndigheter, organisationer och andra som får lämna synpunkter.",
+"5. <b>Lagrådet</b> granskar förslaget juridiskt.",
+"6. <b>Proposition.</b> Regeringen lämnar sitt lagförslag till riksdagen. Ledamöter kan lämna <span class=hl>motioner</span> med motförslag.",
+"7. <b>Utskott.</b> Ett riksdagsutskott bereder ärendet och skriver ett <span class=hl>betänkande</span>.",
+"8. <b>Beslut.</b> Riksdagen debatterar och röstar.",
+"9. <b>Kungörelse.</b> Regeringen utfärdar lagen, som publiceras i <span class=hl>Svensk författningssamling (SFS)</span> och träder i kraft."],
+tip:"Kunna stegen i ordning och förklara orden proposition, motion, remiss, utskott och betänkande."},
+tvingande:{p:[
+"En <span class=hl>tvingande lag</span> går inte att avtala bort. Den gäller oavsett vad parterna kommer överens om. Ofta skyddar den den svagare parten. Exempel: konsumentköplagen när en konsument köper av ett företag, hyresgästens skydd i hyreslagen och ångerrätten vid näthandel.",
+"En <span class=hl>dispositiv lag</span> gäller bara om parterna inte har avtalat något annat. Exempel: köplagen när två privatpersoner eller två företag handlar med varandra.",
+"<b>Varför behövs det?</b> Tvingande regler skyddar den som är i underläge, till exempel en konsument mot ett stort företag. Dispositiva regler respekterar <span class=hl>avtalsfriheten</span> men fyller luckor när parterna inte har kommit överens om allt, så att det ändå finns en regel att gå efter."],
+tip:"Typfråga: ”Varför behövs tvingande lagar?” Svar: skydda den svagare parten."},
+allmanna:{p:[
+"De allmänna domstolarna har tre instanser: <span class=hl>tingsrätt</span>, <span class=hl>hovrätten</span> och <span class=hl>Högsta domstolen (HD)</span>.",
+"<b>Hovrätten</b> är andra instans för mål från tingsrätten. Det finns sex hovrätter. Vid överklagande bedömer hovrätten om <span class=hl>prövningstillstånd</span> behövs. I brottmål behövs inget prövningstillstånd om mer än sex månaders fängelse finns i straffskalan. Annars kan det krävas. Det beviljas om hovrätten ifrågasätter tingsrättens dom eller om domen kan bli vägledande.",
+"<b>Högsta domstolen</b> tar bara upp mål som är av betydelse för rättstillämpningen och som får prövningstillstånd, till exempel hur en ny lag ska tolkas. Domen blir då ett <span class=hl>prejudikat</span>, en vägledning för framtida domar. Det räcker inte att vara missnöjd med hovrättens dom, och relativt få får prövningstillstånd.",
+"<b>Mål och ärenden:</b> <span class=hl>brottmål</span> där åklagaren för talan mot den som misstänks för brott, <span class=hl>tvistemål</span> där två parter tvistar (avtal, skulder, skadestånd, vårdnad), och <span class=hl>domstolsärenden</span> som adoption och god man.",
+"Domstolarnas arbete styrs av <span class=hl>rättegångsbalken (RB)</span> och av regler i regeringsformen.",
+"<b>Principer vid en huvudförhandling (s. 36–37):</b>",
+"<b>Legalitetsprincipen</b>: inget straff utan lag och inget brott utan lag. Ingen får dömas utan stöd i lag (RF och brottsbalken).<br><b>Objektivitetsprincipen</b>: domstolar och myndigheter ska vara sakliga och opartiska; alla behandlas lika inför lagen.<br><b>Muntlighetsprincipen</b>: utredningar och bevis presenteras muntligt vid rättegången.<br><b>Omedelbarhetsprincipen</b>: domen ska bara grundas på det som tas upp under rättegången.<br><b>Koncentrationsprincipen</b>: rättegången ska vara sammanhängande och inte utdragen över tid.<br><b>Offentlighetsprincipen</b>: vem som helst får närvara vid en rättegång och ta del av handlingarna.<br><b>Oskuldspresumtion</b>: den tilltalade är oskyldig tills skulden är bevisad.",
+"Ibland hålls rättegången bakom <span class=hl>lyckta eller stängda dörrar</span>, när målet gäller särskilt känsliga uppgifter. Då får allmänheten inte vara med."],
+tip:"Kunna alla sju principerna från s. 36–37 och förklara dem med egna ord, samt när prövningstillstånd behövs."},
+forvaltning:{p:[
+"Den som är missnöjd med ett myndighetsbeslut kan överklaga till en <span class=hl>förvaltningsdomstol</span>. Både privatpersoner och företag kan överklaga.",
+"Förvaltningsdomstolarna är <b>förvaltningsrätten</b>, <b>kammarrätten</b> och <b>Högsta förvaltningsdomstolen (HFD)</b>.",
+"Exempel på mål: nekad sjukpenning (Försäkringskassan), skatt (Skatteverket), ekonomiskt bistånd från kommunen, återkallat körkort, tvångsvård som LVU och LVM, och migrationsmål. Boken nämner också att man vänder sig hit om man nekats bygglov eller vill överklaga något annat myndighetsbeslut."],
+tip:"Tumregel: missnöjd med en myndighet → förvaltningsdomstol. Brott eller tvist mellan privatpersoner → allmän domstol."},
+norm:{p:[
+"En <span class=hl>norm</span> är en regel för hur man bör bete sig, ofta oskriven. Exempel: att hälsa, inte tränga sig i kön. Bryter man mot en norm blir reaktionen social, som att andra blir irriterade.",
+"En <span class=hl>lag</span> är en skriven regel som beslutats av riksdagen. Den gäller alla, och staten upprätthåller den med <span class=hl>sanktioner</span> som böter eller fängelse.",
+"Normer och lagar påverkar varandra. Lagar bygger ofta på normer, och ibland ändras en lag när normerna ändras. Exempel: aga mot barn förbjöds 1979."],
+tip:"Nyckeln är vem som bestämt regeln och vad som händer om man bryter mot den."},
+rattssakerhet:{p:[
+"<span class=hl>Rättsmedvetande</span> är människors uppfattning om vad som är rätt och fel och vad som är rättvist, och deras kunskap om lagarna. Om lagarna stämmer med folks rättsmedvetande följs de oftare.",
+"<span class=hl>Rättssäkerhet</span> betyder att rättsväsendet fungerar förutsebart och rättvist: lagarna är tydliga och offentliga, alla behandlas lika, ingen straffas utan lag och bevis, man har rätt till försvar och att överklaga, och domstolarna är opartiska.",
+"Rättssäkerhet skyddar den enskilda mot godtycke. Rättsmedvetande gör att lagarna får stöd och respekt."],
+tip:"Kunna skilja på dem: rättsmedvetande finns i människors huvuden, rättssäkerhet handlar om hur systemet fungerar."},
+irac:{p:[
+"IRAC är en metod för att lösa ett juridiskt problem steg för steg:",
+"<b>I – Issue (fråga).</b> Vad är den juridiska frågan? Formulera den som en fråga.",
+"<b>R – Rule (regel).</b> Vilken lag eller regel gäller? Ange lagen och vad den säger.",
+"<b>A – Application/Analysis (tillämpning).</b> Använd regeln på fakta i fallet. Vad talar för och emot?",
+"<b>C – Conclusion (slutsats).</b> Svara på frågan: hur blir det?",
+"Öva i IRAC-verkstaden. Skriv själv först och jämför sedan med modellsvaret."],
+tip:"Ett bra A-steg kopplar varje del av regeln till en fakta i fallet."},
+rattskallor:{p:[
+"<span class=hl>Rättskällor</span> är det domare och jurister använder för att avgöra vad som gäller. De har olika tyngd:",
+"<b>Lagen</b> (författningar) väger tyngst.",
+"<span class=hl>Förarbeten</span>: dokument från lagstiftningsprocessen, som SOU och proposition. De visar vad lagstiftaren ville uppnå med lagen.",
+"<span class=hl>Prejudikat</span>: ett avgörande från högsta instans (HD eller HFD) som blir vägledande för hur liknande fall ska dömas.",
+"<span class=hl>Praxis</span>: hur domstolar (och myndigheter) brukar döma och besluta över tid. Prejudikat är en del av rättspraxis.",
+"<span class=hl>Sedvana</span>: handlingsmönster som tillämpats länge och uppfattas som bindande, till exempel inom handel.",
+"<span class=hl>Doktrin</span>: rättsvetenskaplig litteratur, alltså juristers och forskares analyser av rätten."],
+tip:"Skillnad prejudikat/praxis: ett prejudikat är ETT vägledande avgörande från högsta instans; praxis är det samlade mönstret av avgöranden."}
+};
+
+let TERMS=[
+["Grundlag","Lag som står över alla andra lagar och skyddar demokratin. Sverige har fyra.","grundlagar"],
+["Regeringsformen (RF)","Grundlagen om hur Sverige styrs och våra fri- och rättigheter.","grundlagar"],
+["Successionsordningen (SO)","Grundlagen om tronföljden, vem som blir kung eller drottning.","grundlagar"],
+["Tryckfrihetsförordningen (TF)","Grundlagen om tryckfrihet och offentlighetsprincipen.","grundlagar"],
+["Yttrandefrihetsgrundlagen (YGL)","Grundlagen om yttrandefrihet i radio, tv, film och på webben.","grundlagar"],
+["Offentlighetsprincipen","Rätten till insyn: att ta del av allmänna handlingar och att närvara vid rättegångar.","grundlagar"],
+["Likalydande beslut","Två beslut med samma innehåll. Krävs för grundlagsändring, med val emellan.","grundlagar"],
+["Rättsstat","Stat där makten utövas enligt lagar som gäller lika för alla, även för makthavarna.","rattsstat"],
+["Legalitetsprincipen","Offentlig makt utövas under lagarna. Inget straff utan lag.","rattsstat"],
+["Maktdelning","Makten delas mellan lagstiftande, verkställande och dömande organ.","rattsstat"],
+["Objektivitetsprincipen","Domstolar och myndigheter ska vara sakliga och opartiska.","rattsstat"],
+["Likhet inför lagen","Alla ska behandlas lika av domstolar och myndigheter.","rattsstat"],
+["Godtycke","Beslut efter eget tycke, utan stöd i regler.","rattsstat"],
+["Rättsordning","Alla rättsregler som gäller i ett samhälle.","hierarki"],
+["Normhierarki","Rangordningen mellan regler: grundlag, lag, förordning, föreskrift.","hierarki"],
+["Lag","Regel som beslutas av riksdagen.","hierarki"],
+["Förordning","Regel som beslutas av regeringen.","hierarki"],
+["Föreskrift","Regel som beslutas av en myndighet eller kommun.","hierarki"],
+["Lagprövning","Domstol eller myndighet låter bli att tillämpa en regel som strider mot en högre regel.","hierarki"],
+["Riksdagen","Folkvald församling med 349 ledamöter som stiftar lagar och beslutar om skatter och budget.","styrning"],
+["Regeringen","Statsministern och statsråden. Styr riket och leder myndigheterna.","styrning"],
+["Talman","Leder riksdagens arbete och föreslår statsminister.","styrning"],
+["Statsråd","Minister i regeringen.","styrning"],
+["Myndighet","Statligt eller kommunalt organ som verkställer lagar, t.ex. Skatteverket.","styrning"],
+["Ministerstyre","När en minister styr en myndighets beslut i ett enskilt ärende. Förbjudet i Sverige.","styrning"],
+["Misstroendeförklaring","Riksdagen förklarar att en minister inte har dess förtroende. Ministern måste avgå.","styrning"],
+["Konstitutionsutskottet (KU)","Riksdagsutskott som bl.a. granskar regeringens arbete.","styrning"],
+["Justitieombudsmannen (JO)","Granskar att myndigheter och tjänstemän följer lagen.","styrning"],
+["Kommunalt självstyre","Kommuner och regioner bestämmer själva över sina frågor, t.ex. skola och vård.","styrning"],
+["EKMR","Europakonventionen om mänskliga rättigheter. Svensk lag sedan 1995.","rattigheter"],
+["Absolut rättighet","Rättighet som inte får begränsas ens genom lag. T.ex. förbud mot tortyr.","rattigheter"],
+["Relativ rättighet","Rättighet som får begränsas genom lag under vissa villkor. T.ex. yttrandefrihet.","rattigheter"],
+["Kommittédirektiv","Regeringens uppdrag om vad en utredning ska undersöka.","lagstiftning"],
+["SOU","Statens offentliga utredningar. Utredningens förslag.","lagstiftning"],
+["Remiss","Förslag skickas till myndigheter och organisationer för synpunkter.","lagstiftning"],
+["Lagrådet","Domare som granskar lagförslag juridiskt.","lagstiftning"],
+["Proposition","Regeringens förslag till riksdagen.","lagstiftning"],
+["Motion","Förslag från en riksdagsledamot.","lagstiftning"],
+["Utskott","Grupp riksdagsledamöter som bereder ärenden inom ett område.","lagstiftning"],
+["Betänkande","Utskottets förslag till beslut i riksdagen.","lagstiftning"],
+["SFS","Svensk författningssamling, där nya lagar och förordningar publiceras.","lagstiftning"],
+["Tvingande lag","Lag som inte kan avtalas bort, ofta till skydd för svagare part.","tvingande"],
+["Dispositiv lag","Lag som gäller om parterna inte avtalat något annat.","tvingande"],
+["Avtalsfrihet","Rätten att själv bestämma om och med vem man ingår avtal, och vad det ska innehålla.","tvingande"],
+["Tingsrätt","Första instans bland de allmänna domstolarna.","allmanna"],
+["Hovrätt","Andra instans; prövar överklagade tingsrättsdomar.","allmanna"],
+["Högsta domstolen (HD)","Högsta instans för allmänna domstolar; skapar prejudikat.","allmanna"],
+["Brottmål","Mål där åklagaren för talan mot någon som misstänks för brott.","allmanna"],
+["Tvistemål","Mål där två parter är oense, t.ex. om avtal eller skadestånd.","allmanna"],
+["Domstolsärende","Fråga utan motpart, t.ex. adoption eller god man.","allmanna"],
+["Åklagare","Leder förundersökning och för talan för staten i brottmål.","allmanna"],
+["Tilltalad","Den som är åtalad för brott.","allmanna"],
+["Kärande","Den som stämmer någon i ett tvistemål.","allmanna"],
+["Svarande","Den som blir stämd i ett tvistemål.","allmanna"],
+["Prövningstillstånd","Krav på tillstånd för att en högre instans ska ta upp ett mål.","allmanna"],
+["Oskuldspresumtion","Den tilltalade är oskyldig tills skulden är bevisad.","allmanna"],
+["Huvudförhandling","Själva rättegången där parterna lägger fram sin sak.","allmanna"],
+["Nämndeman","Lekman (inte jurist) som dömer tillsammans med juristdomare.","allmanna"],
+["Förvaltningsrätt","Första instans bland förvaltningsdomstolarna.","forvaltning"],
+["Kammarrätt","Andra instans bland förvaltningsdomstolarna.","forvaltning"],
+["Högsta förvaltningsdomstolen (HFD)","Högsta instans bland förvaltningsdomstolarna.","forvaltning"],
+["Förvaltningsmål","Mål där en enskild överklagar en myndighets beslut.","forvaltning"],
+["Norm","Regel, ofta oskriven, för hur man bör bete sig.","norm"],
+["Sanktion","Följd eller straff när en regel bryts.","norm"],
+["Rättsmedvetande","Människors uppfattning om rätt och fel och deras kunskap om lagarna.","rattssakerhet"],
+["Rättssäkerhet","Att rättsväsendet är förutsebart, opartiskt och behandlar alla lika.","rattssakerhet"],
+["Förutsebarhet","Att man i förväg kan veta vad som gäller och vilka följder ett handlande får.","rattssakerhet"],
+["IRAC","Juridisk metod: Issue, Rule, Application, Conclusion.","irac"],
+["Rättskälla","Det man använder för att avgöra vad som gäller rättsligt.","rattskallor"],
+["Prejudikat","Vägledande avgörande från högsta instans.","rattskallor"],
+["Praxis","Hur domstolar och myndigheter brukar döma eller besluta över tid.","rattskallor"],
+["Sedvana","Handlingsmönster som tillämpats länge och uppfattas som bindande.","rattskallor"],
+["Doktrin","Rättsvetenskaplig litteratur, juristers analyser.","rattskallor"],
+["Förarbeten","Dokument från lagstiftningen (t.ex. SOU, proposition) som visar lagens syfte.","rattskallor"]
+].map(([t,d,topic])=>({t,d,topic}));
+
+const BOOK=[
+["Rättssystem","Består av lagar och regler.","hierarki"],
+["Rättsregler","Är nedskrivna och av riksdagen beslutade lagar.","hierarki"],
+["Sanktion","Det vi normalt kallar ”straff”, t.ex. böter eller fängelse.","hierarki"],
+["Rättsordning","Det system av rättsregler som består av grundlagar, lagar, förordningar och föreskrifter.","hierarki"],
+["Normhierarki","Den inbördes ordning som visar vilka lagar och regler som styr andra lagar och regler.","hierarki"],
+["Representativt styrelseskick","De representanter som sitter i riksdagen är folkvalda.","styrning"],
+["Parlamentariskt styrelseskick","Den offentliga makten utgår från folket och regeringen måste ha riksdagens förtroende.","styrning"],
+["Folkrepresentation","Lagstiftande församling bestående av valda företrädare för folket.","styrning"],
+["Regioner","Kallades tidigare landsting. Självstyrande enheter som motsvarar län, sköter t.ex. sjukvård och kollektivtrafik.","styrning"],
+["Kommuner","Geografiskt avgränsade områden med ett visst lokalt självstyre. Det finns 290.","styrning"],
+["Den lagstiftande makten","Har riksdagen, det vill säga folkrepresentationen.","styrning"],
+["Skattepengar","Inbetald skatt som finansierar viktiga samhällsfunktioner.","styrning"],
+["Den verkställande makten","Har regeringen, som förverkligar de lagar som riksdagen har stiftat.","styrning"],
+["Riksdagens talman","Landets högsta valbara ämbete. Talmannen leder riksdagens arbete.","styrning"],
+["Den dömande makten","Har de allmänna domstolarna, förvaltningsdomstolarna samt specialdomstolarna.","styrning"],
+["Likhetsprincipen","Myndigheter ska behandla alla lika, oavsett exempelvis nationalitet eller utbildning.","rattsstat"],
+["Objektivitetsprincipen","Alla som arbetar på myndigheter ska vara sakliga och opartiska.","rattsstat"],
+["Hovrätten","Andra instans i frågor som har tagits upp av tingsrätt.","allmanna"],
+["Prövningstillstånd","För domar i brottmål där fängelse finns i straffskalan behövs inget prövningstillstånd; i övriga fall bedömer den högre instansen om målet ska tas upp.","allmanna"],
+["Högsta domstolen","Den högsta av de allmänna domstolarna. Domar här blir vägledande för framtida mål.","allmanna"],
+["Prejudikat","Vägledande domar i Högsta domstolen.","rattskallor"],
+["Rättegångsbalken","Regelverket för domstolarnas arbete (RB).","allmanna"],
+["Lyckta eller stängda dörrar","Möjligt vid en rättegång som behandlar särskilt känsliga uppgifter.","allmanna"],
+["Förvaltningsdomstolar","Behandlar ärenden som gäller myndighetsbeslut: förvaltningsrätten, kammarrätten och Högsta förvaltningsdomstolen.","forvaltning"]
+].map(([t,d,topic])=>({t,d,topic,book:true}));
+const EXTRA=[
+["Riksdagsordningen (RO)","Regler om riksdagens arbete. Ingen grundlag, men högre rang än vanlig lag.","grundlagar"],
+["Författningar","Lagar och förordningar kallas tillsammans författningar.","hierarki"],
+["Förtroendeomröstning","Riksdagen röstar om en minister har dess förtroende; kan avsätta ministern. Kallas även misstroendeförklaring.","styrning"],
+["Allmän och lika rösträtt","Alla myndiga medborgare får rösta och alla röster är lika mycket värda.","styrning"],
+["Yttrandefrihet","Frihet att i tal, skrift eller bild meddela upplysningar och uttrycka tankar, åsikter och känslor.","rattigheter"],
+["Informationsfrihet","Frihet att inhämta och ta emot upplysningar och ta del av andras yttranden.","rattigheter"],
+["Mötesfrihet","Frihet att anordna och delta i sammankomster, t.ex. för upplysning eller konst.","rattigheter"],
+["Demonstrationsfrihet","Frihet att anordna och delta i demonstrationer på allmän plats.","rattigheter"],
+["Föreningsfrihet","Frihet att sammansluta sig med andra för allmänna eller enskilda syften.","rattigheter"],
+["Religionsfrihet","Frihet att ensam eller tillsammans med andra utöva sin religion.","rattigheter"],
+["Muntlighetsprincipen","Utredningar och bevis presenteras muntligt vid rättegången.","allmanna"],
+["Omedelbarhetsprincipen","Domen grundas bara på det som tas upp under rättegången.","allmanna"],
+["Koncentrationsprincipen","Rättegången ska vara sammanhängande och inte utdragen över tid.","allmanna"]
+].map(([t,d,topic])=>({t,d,topic}));
+const DROP=["Talman","Hovrätt","Högsta domstolen (HD)","Misstroendeförklaring","Lag","Rättsordning","Normhierarki","Sanktion","Objektivitetsprincipen","Prövningstillstånd","Prejudikat"];
+TERMS=[...BOOK,...EXTRA,...TERMS.filter(t=>!DROP.includes(t.t))];
+
+const QUIZ=[
+// grundlagar
+["grundlagar","Vilken grundlag reglerar vem som blir kung eller drottning?",["Regeringsformen","Successionsordningen","Tryckfrihetsförordningen","Yttrandefrihetsgrundlagen"],1,"Successionsordningen reglerar tronföljden."],
+["grundlagar","I vilken grundlag finns offentlighetsprincipen?",["Yttrandefrihetsgrundlagen","Regeringsformen","Tryckfrihetsförordningen","Successionsordningen"],2,"TF ger rätt att ta del av allmänna handlingar."],
+["grundlagar","Hur ändras en grundlag?",["Riksdagen beslutar en gång med två tredjedels majoritet","Två likalydande beslut med ett riksdagsval emellan","Regeringen beslutar efter remiss","Det räcker med en folkomröstning"],1,"Två likalydande beslut med val emellan. Det första beslutet är vilande."],
+["grundlagar","Vilken grundlag skyddar yttrandefriheten i tv, radio och på webben?",["TF","RF","YGL","SO"],2,"Yttrandefrihetsgrundlagen gäller medier som radio, tv, film och webb."],
+["grundlagar","Varför är det svårt att ändra en grundlag?",["Riksdagen har inte tid","En tillfällig majoritet ska inte snabbt kunna inskränka demokratin och rättigheterna","Kungen måste godkänna","EU kräver det"],1,"Kravet på val emellan skyddar demokratin och ger väljarna chans att säga sitt."],
+["grundlagar","Vilken grundlag beskriver hur Sverige styrs och innehåller våra fri- och rättigheter?",["RF","SO","TF","YGL"],0,"Regeringsformen, särskilt kapitel 1 och 2."],
+// rattsstat
+["rattsstat","Vad innebär legalitetsprincipen?",["Offentlig makt utövas under lagarna, och inget straff utan lag","Alla lagar ska publiceras i tidningen","Domstolarna stiftar lagar","Polisen bestämmer straffet"],0,"RF 1 kap. 1 §: den offentliga makten utövas under lagarna."],
+["rattsstat","Vad betyder maktdelning?",["Makten delas mellan lagstiftande, verkställande och dömande","Kommunerna bestämmer allt","Sverige och EU delar budget","Staten äger företag tillsammans"],0,"Riksdag, regering och domstolar har olika uppgifter så att ingen får all makt."],
+["rattsstat","En minister ringer en domare och säger hur ett mål ska avgöras. Vilken princip bryts?",["Oberoende domstolar","Offentlighetsprincipen","Kommunalt självstyre","Dispositionsprincipen"],0,"Ingen får styra hur en domstol dömer i ett enskilt fall."],
+["rattsstat","Varför är rättsstatens principer viktiga?",["De gör lagstiftningen snabbare","De skyddar mot godtycke och maktmissbruk så att samma regler gäller alla","De ger regeringen mer makt","De gör att domstolar slipper följa lagen"],1,"Principerna ger förutsebarhet, likabehandling och skydd för individen."],
+["rattsstat","Objektivitetsprincipen innebär att myndigheter ska…",["vara sakliga och opartiska","vara så snabba som möjligt","alltid ge medborgaren rätt","vara privata"],0,"RF 1 kap. 9 §."],
+// hierarki
+["hierarki","Vilken ordning är rätt enligt boken, högst först?",["Grundlagar – riksdagsordningen – lagar – förordningar – föreskrifter","Grundlagar – lagar – riksdagsordningen – föreskrifter – förordningar","Riksdagsordningen – grundlagar – lagar – förordningar – föreskrifter","Lagar – grundlagar – förordningar – riksdagsordningen – föreskrifter"],0,"Bokens bild på s. 14 har fem nivåer."],
+["hierarki","Vem beslutar förordningar?",["Riksdagen","Regeringen","Myndigheter","Domstolar"],1,"Regeringen beslutar förordningar."],
+["hierarki","Vem beslutar lagar?",["Regeringen","Kungen","Riksdagen","Högsta domstolen"],2,"Riksdagen stiftar lagar."],
+["hierarki","Vad händer om en förordning strider mot en lag?",["Förordningen ska inte tillämpas","Förordningen gäller före lagen","Båda gäller lika mycket","Regeringen avgör från fall till fall"],0,"En lägre regel får inte strida mot en högre (lagprövning)."],
+["hierarki","Vad menas med rättsordning?",["Ordningen i en rättssal","Alla rättsregler som gäller i ett samhälle","Turordningen för rättegångar","Polisens arbetsordning"],1,"Rättsordningen är hela regelsystemet."],
+// styrning
+["styrning","Hur många ledamöter har riksdagen?",["249","349","400","175"],1,"349 ledamöter, val vart fjärde år."],
+["styrning","Vem föreslår ny statsminister?",["Kungen","Talmannen","Högsta domstolen","Statsrådet"],1,"Talmannen föreslår, riksdagen röstar."],
+["styrning","Vem lägger fram propositioner?",["Riksdagen","Regeringen","Lagrådet","Myndigheterna"],1,"En proposition är regeringens förslag till riksdagen."],
+["styrning","Vad är ministerstyre?",["När en minister bestämmer hur en myndighet ska besluta i ett enskilt ärende – förbjudet","När regeringen beslutar förordningar – tillåtet","När ministrar röstar i riksdagen","När kungen utser ministrar"],0,"Myndigheter är självständiga i enskilda ärenden."],
+["styrning","Vem ansvarar främst för sjukvården?",["Staten","Kommunerna","Regionerna","Försäkringskassan"],2,"Regionerna ansvarar för hälso- och sjukvård."],
+["styrning","Vilken roll har kungen?",["Leder regeringen","Statschef med ceremoniella uppgifter, ingen politisk makt","Godkänner alla lagar","Leder riksdagen"],1,"Statschefen har representativa uppgifter."],
+["styrning","Hur kan riksdagen tvinga en minister att avgå?",["Genom en förtroendeomröstning (misstroendeförklaring)","Genom en motion","Genom remiss","Genom prövningstillstånd"],0,"Ministrarna är ansvariga inför riksdagen, som kan avsätta en minister genom förtroendeomröstning."],
+// rattigheter
+["rattigheter","Vad är en absolut rättighet?",["En rättighet som inte kan begränsas ens genom lag","En rättighet som gäller bara vuxna","En rättighet som regeringen kan ta bort","En rättighet som finns i EU-rätten"],0,"Absolut = totalt skydd."],
+["rattigheter","Vilken av dessa är en relativ rättighet?",["Yttrandefrihet","Skydd mot tortyr","Förbud mot dödsstraff","Religionsfrihet"],0,"Yttrandefriheten kan begränsas genom lag, t.ex. hets mot folkgrupp."],
+["rattigheter","Vilken av dessa är en absolut rättighet?",["Demonstrationsfrihet","Religionsfrihet","Mötesfrihet","Föreningsfrihet"],1,"Religionsfriheten får inte begränsas."],
+["rattigheter","Vad är EKMR?",["Europakonventionen om mänskliga rättigheter","En svensk myndighet","En EU-förordning om handel","En grundlag om tronföljd"],0,"Svensk lag sedan 1995."],
+["rattigheter","När får en relativ rättighet begränsas?",["Genom lag, för godtagbara ändamål och inte mer än nödvändigt","När regeringen tycker det","När polisen bestämmer","Aldrig"],0,"RF 2 kap. 21 §."],
+["rattigheter","Att hets mot folkgrupp är brottsligt begränsar vilken rättighet?",["Rörelsefrihet","Yttrandefrihet","Religionsfrihet","Mötesfrihet"],1,"Ett exempel på att yttrandefriheten är relativ."],
+// lagstiftning
+["lagstiftning","Vad är en proposition?",["Regeringens lagförslag till riksdagen","En riksdagsledamots förslag","Ett utskotts beslut","En domstols dom"],0,""],
+["lagstiftning","Vad är en motion?",["Ett förslag från en riksdagsledamot","Regeringens förslag","En myndighetsföreskrift","Ett remissvar"],0,""],
+["lagstiftning","Vad är en remiss?",["Förslaget skickas till myndigheter och organisationer för synpunkter","Lagen publiceras","Riksdagen röstar","Domstolen dömer"],0,""],
+["lagstiftning","Var publiceras nya lagar?",["SOU","SFS","Ds","Riksdagstrycket"],1,"Svensk författningssamling."],
+["lagstiftning","Vad gör ett riksdagsutskott?",["Bereder ärendet och skriver ett betänkande","Skriver kommittédirektiv","Dömer i mål","Publicerar lagen"],0,""],
+["lagstiftning","Vad gör Lagrådet?",["Granskar lagförslag juridiskt","Röstar om lagar","Utser ministrar","Skriver SOU"],0,"Lagrådet består av domare från HD och HFD."],
+// tvingande
+["tvingande","Vad är en tvingande lag?",["En lag som inte kan avtalas bort","En lag som bara gäller företag","En lag som gäller om inget annat avtalats","En lag utan sanktioner"],0,""],
+["tvingande","Vad är en dispositiv lag?",["Gäller om parterna inte avtalat annat","Gäller alltid","Gäller bara i domstol","Gäller bara konsumenter"],0,""],
+["tvingande","Konsumentköplagen är…",["dispositiv","tvingande till konsumentens förmån","en förordning","en grundlag"],1,"Avtal som försämrar konsumentens rätt gäller inte."],
+["tvingande","Varför behövs tvingande lagar?",["För att skydda den svagare parten","För att göra avtal snabbare","För att företag ska tjäna mer","För att slippa domstolar"],0,""],
+["tvingande","Köplagen när två privatpersoner handlar är…",["tvingande","dispositiv","en grundlag","ogiltig"],1,"Parterna kan avtala bort köplagens regler."],
+// allmanna
+["allmanna","Vilka är de allmänna domstolarna?",["Tingsrätt, hovrätt, Högsta domstolen","Förvaltningsrätt, kammarrätt, HFD","Tingsrätt, kammarrätt, HD","Hovrätt, förvaltningsrätt, HD"],0,""],
+["allmanna","Vad är ett brottmål?",["Åklagaren för talan mot någon som misstänks för brott","Två grannar tvistar om ett staket","Någon överklagar ett skattebeslut","En adoption"],0,""],
+["allmanna","Vad är ett tvistemål?",["Två parter är oense, t.ex. om avtal eller skadestånd","Ett brott har begåtts","En myndighet har fattat beslut","Ett lagförslag granskas"],0,""],
+["allmanna","Vad innebär prövningstillstånd i HD?",["HD tar främst upp mål som kan bli vägledande (prejudikat)","Alla mål prövas automatiskt","Tingsrätten måste godkänna","Åklagaren bestämmer"],0,""],
+["allmanna","Vad innebär omedelbarhetsprincipen?",["Domen får bara grundas på det som lagts fram vid huvudförhandlingen","Domen ska meddelas samma dag","Den åtalade ska gripas direkt","Rättegången ska vara offentlig"],0,""],
+["allmanna","Vem har bevisbördan i ett brottmål?",["Den tilltalade","Åklagaren","Domaren","Nämndemännen"],1,"Skulden ska vara ställd utom rimligt tvivel."],
+["allmanna","Vad innebär muntlighetsprincipen?",["Förhandlingen sker muntligt","Domen läses upp","Bara skriftliga bevis gäller","Vittnen får inte prata"],0,""],
+// forvaltning
+["forvaltning","Vilka är förvaltningsdomstolarna?",["Förvaltningsrätt, kammarrätt, Högsta förvaltningsdomstolen","Tingsrätt, hovrätt, HD","Förvaltningsrätt, hovrätt, HD","Kammarrätt, tingsrätt, HFD"],0,""],
+["forvaltning","Vilken typ av mål hanterar förvaltningsdomstolar?",["Enskild mot myndighet, t.ex. skatt eller bistånd","Stöld och misshandel","Tvist mellan grannar","Skilsmässa"],0,""],
+["forvaltning","Försäkringskassan nekar sjukpenning. Vart överklagar man?",["Tingsrätten","Förvaltningsrätten","Hovrätten","Riksdagen"],1,""],
+["forvaltning","Vilket mål hör INTE hemma i förvaltningsdomstol?",["Ett beslut om skatt","Ett återkallat körkort","Ett inbrott","Nekat ekonomiskt bistånd"],2,"Brott prövas i allmän domstol."],
+// norm
+["norm","Vad är den viktigaste skillnaden mellan norm och lag?",["En lag är beslutad av riksdagen och upprätthålls av staten med sanktioner; en norm är ofta oskriven och sanktionen är social","Det finns ingen skillnad","Normer är strängare","Lagar gäller bara vuxna"],0,""],
+["norm","Vilket är ett exempel på en norm?",["Att hälsa när man träffar någon","Att betala skatt","Att köra på höger sida","Att inte stjäla"],0,""],
+["norm","Vad är en sanktion?",["En följd när en regel bryts","En sorts lag","En domstol","En rättighet"],0,""],
+// rattssakerhet
+["rattssakerhet","Vad betyder rättssäkerhet?",["Att rättsväsendet är förutsebart, opartiskt och behandlar alla lika","Att det finns många poliser","Att straffen är hårda","Att domstolar är hemliga"],0,""],
+["rattssakerhet","Vad är rättsmedvetande?",["Människors uppfattning om rätt och fel och kunskap om lagarna","En juridisk examen","En domstol","En lag om medvetande"],0,""],
+["rattssakerhet","Vad är ett hot mot rättssäkerheten?",["Att man döms utan att få försvara sig","Att domar är offentliga","Att man kan överklaga","Att lagar publiceras"],0,""],
+["rattssakerhet","Varför är det viktigt att lagar stämmer med rättsmedvetandet?",["Annars följs och respekteras de sämre","Annars blir de grundlagar","Annars måste kungen godkänna dem","Det spelar ingen roll"],0,""],
+// irac
+["irac","Vad står I för i IRAC?",["Issue – den juridiska frågan","Information","Instans","Initiativ"],0,""],
+["irac","Vad står R för?",["Rule – den regel som gäller","Resultat","Remiss","Rättegång"],0,""],
+["irac","Vad står A för?",["Application/Analysis – regeln tillämpas på fakta","Avtal","Åtal","Avgörande"],0,""],
+["irac","”Enligt konsumentköplagen har köparen rätt att reklamera fel.” Vilket IRAC-steg?",["Issue","Rule","Application","Conclusion"],1,"Här anges regeln."],
+["irac","”Alltså har Sara rätt att få jackan lagad eller pengarna tillbaka.” Vilket steg?",["Issue","Rule","Application","Conclusion"],3,""],
+// bok
+["hierarki","Vad är en sanktion?",["Det vi normalt kallar straff, t.ex. böter eller fängelse","En lag från riksdagen","En sorts domstol","En rättighet"],0,"Bryter man mot en rättsregel kan man drabbas av en sanktion."],
+["hierarki","Vad kallas lagar och förordningar tillsammans?",["Föreskrifter","Författningar","Grundlagar","Rättskällor"],1,""],
+["hierarki","Var hamnar riksdagsordningen i normhierarkin?",["Mellan grundlagar och lagar","Högst upp","Längst ner","Den är en grundlag"],0,"RO är ett mellanting mellan grundlag och vanlig lag."],
+["hierarki","Vad är rättsregler?",["Nedskrivna lagar beslutade av riksdagen","Oskrivna normer","Domstolens beslut","Myndigheters råd"],0,""],
+["grundlagar","Har Sverige någon gång hållit folkomröstning om ett grundlagsförslag?",["Ja, flera gånger","Nej, det har än så länge aldrig skett","Ja, en gång 1980","Det är inte möjligt"],1,"Möjligheten finns men har inte använts."],
+["styrning","Vad betyder representativt styrelseskick?",["Riksdagens ledamöter är folkvalda representanter","Kungen representerar folket","Regeringen väljs direkt av folket","Alla beslut tas i folkomröstning"],0,""],
+["styrning","Vad betyder parlamentariskt styrelseskick?",["Regeringen måste ha riksdagens förtroende","Domstolarna stiftar lagar","Kommunerna styr staten","Kungen utser regeringen"],0,""],
+["styrning","Vem har den verkställande makten?",["Riksdagen","Regeringen","Domstolarna","Kommunerna"],1,"Den lagstiftande har riksdagen, den dömande har domstolarna."],
+["styrning","Vem har landets högsta valbara ämbete?",["Statsministern","Riksdagens talman","Kungen","Justitieministern"],1,""],
+["styrning","När blir talmannens förslag till statsminister godkänt?",["Om det inte finns en majoritet emot förslaget","Om alla röstar ja","Om kungen godkänner","Om regeringen röstar ja"],0,""],
+["styrning","Vem får rösta i riksdagsvalet?",["Alla som bor i Sverige","Svenska medborgare som fyllt 18, även de som bor utomlands","Alla över 16","Bara de som betalar skatt"],1,"I region- och kommunvalen får alla bosatta i landet rösta."],
+["styrning","Hur många kommuner finns i Sverige?",["21","149","290","349"],2,""],
+["styrning","Vad står i RF 1 kap. 2 §?",["Makten ska utövas med respekt för alla människors lika värde","Riksdagen har 349 ledamöter","Kungen är statschef","Sverige är med i EU"],0,""],
+["rattsstat","Vad innebär likhetsprincipen?",["Myndigheter ska behandla alla lika oavsett nationalitet eller utbildning","Alla ska tjäna lika mycket","Alla lagar ska vara lika långa","Alla ska rösta lika"],0,""],
+["rattsstat","En handläggare tycker illa om den sökande och låter det påverka beslutet. Vilken princip bryts?",["Objektivitetsprincipen","Koncentrationsprincipen","Muntlighetsprincipen","Offentlighetsprincipen"],0,"Tjänstemän får inte ”tycka”, de ska vara sakliga och opartiska."],
+["rattsstat","Dubbla straff för brott i vissa bostadsområden skulle i Sverige strida mot…",["allas likhet inför lagen","koncentrationsprincipen","föreningsfriheten","kommunalt självstyre"],0,"Bokens exempel från Danmark."],
+["rattigheter","Frihet att ta emot upplysningar och ta del av andras yttranden kallas…",["Yttrandefrihet","Informationsfrihet","Mötesfrihet","Föreningsfrihet"],1,""],
+["rattigheter","Vad är skillnaden mellan mötesfrihet och demonstrationsfrihet?",["Demonstrationsfrihet gäller demonstrationer på allmän plats","Det finns ingen skillnad","Mötesfrihet gäller bara föreningar","Demonstrationsfrihet gäller bara inomhus"],0,""],
+["rattigheter","I vilket kapitel i RF står fri- och rättigheterna?",["Kapitel 1","Kapitel 2","Kapitel 8","Kapitel 11"],1,"RF 2 kap. 1 §."],
+["allmanna","Hur många hovrätter finns det?",["Tre","Sex","Tolv","48"],1,""],
+["allmanna","Vad heter regelverket för domstolarnas arbete?",["Brottsbalken","Rättegångsbalken","Föräldrabalken","Regeringsformen"],1,""],
+["allmanna","När kan en rättegång hållas bakom lyckta dörrar?",["När målet gäller särskilt känsliga uppgifter","När domaren är trött","Alltid i tvistemål","När åklagaren vill"],0,""],
+["allmanna","När behövs inget prövningstillstånd i hovrätten?",["I brottmål där mer än sex månaders fängelse finns i straffskalan","I alla tvistemål","Aldrig","När man är missnöjd med domen"],0,""],
+["allmanna","Vad innebär koncentrationsprincipen?",["Rättegången ska vara sammanhängande och inte utdragen över tid","Alla ska koncentrera sig","Domen ska vara kort","Bara en domare dömer"],0,""],
+["forvaltning","Vem kan överklaga till förvaltningsdomstol?",["Både privatpersoner och företag","Bara myndigheter","Bara advokater","Bara svenska medborgare"],0,""],
+// rattskallor
+["rattskallor","Vad är ett prejudikat?",["Ett vägledande avgörande från högsta instans","En utredning","En gammal sedvänja","En lärobok i juridik"],0,""],
+["rattskallor","Vad är praxis?",["Hur domstolar och myndigheter brukar döma eller besluta över tid","En lag från EU","Lagens syfte","En juristbok"],0,""],
+["rattskallor","Vad är doktrin?",["Rättsvetenskaplig litteratur","En dom från HD","En regeringsförordning","Ett remissvar"],0,""],
+["rattskallor","Vad är förarbeten?",["Dokument från lagstiftningen som visar lagens syfte, t.ex. SOU och proposition","Domar från tingsrätten","Myndighetsföreskrifter","Oskrivna normer"],0,""],
+["rattskallor","Vad är sedvana?",["Handlingsmönster som tillämpats länge och uppfattas som bindande","En lag från 1700-talet","En dom från HD","En motion"],0,""],
+["rattskallor","Vilken rättskälla väger tyngst?",["Lagen","Doktrin","Sedvana","Praxis"],0,""],
+["rattskallor","En domare undrar vad riksdagen ville uppnå med en lag. Vad läser hen?",["Förarbeten","Doktrin","Sedvana","SFS-registret"],0,""]
+].map(([topic,q,a,c,why])=>({topic,q,a,c,why}));
+
+const SORTS=[
+{id:"s1",topic:"hierarki",type:"order",title:"Rättsordningen enligt boken – högst först",items:["Grundlagar","Riksdagsordningen","Lagar","Förordningar","Föreskrifter"]},
+{id:"s15",topic:"styrning",type:"buckets",title:"Vilken makt?",buckets:{"Lagstiftande makten":["Riksdagen","Folkrepresentationen","Stiftar lag"],"Verkställande makten":["Regeringen","Förverkligar riksdagens lagar","Utfärdar förordningar"],"Dömande makten":["Allmänna domstolar","Förvaltningsdomstolar","Specialdomstolar"]}},
+{id:"s16",topic:"rattigheter",type:"match",title:"Fri- och rättigheterna i RF 2:1",pairs:[["Yttrandefrihet","Meddela upplysningar och uttrycka tankar, åsikter och känslor"],["Informationsfrihet","Inhämta och ta emot upplysningar"],["Mötesfrihet","Anordna och delta i sammankomster"],["Demonstrationsfrihet","Anordna och delta i demonstrationer på allmän plats"],["Föreningsfrihet","Sammansluta sig med andra"],["Religionsfrihet","Utöva sin religion ensam eller med andra"]]},
+{id:"s2",topic:"grundlagar",type:"order",title:"Så ändras en grundlag",items:["Förslaget läggs fram i riksdagen","Riksdagen fattar ett första, vilande beslut","Allmänt riksdagsval (minst nio månader senare)","Nya riksdagen fattar ett andra, likalydande beslut","Ändringen träder i kraft"]},
+{id:"s3",topic:"lagstiftning",type:"order",title:"Lagstiftningsprocessen",items:["Initiativ – ett problem uppmärksammas","Regeringen skriver kommittédirektiv","Utredning – förslag i en SOU","Remiss – synpunkter samlas in","Lagrådet granskar","Proposition lämnas till riksdagen","Utskottet skriver betänkande","Riksdagen debatterar och röstar","Lagen publiceras i SFS och träder i kraft"]},
+{id:"s4",topic:"rattigheter",type:"buckets",title:"Absolut eller relativ rättighet?",buckets:{"Absolut":["Förbud mot dödsstraff","Skydd mot tortyr","Religionsfrihet","Förbud mot kroppsstraff","Skydd mot att tvingas uppge politisk åsikt"],"Relativ":["Yttrandefrihet","Mötesfrihet","Demonstrationsfrihet","Föreningsfrihet","Informationsfrihet","Rörelsefrihet"]}},
+{id:"s5",topic:"tvingande",type:"buckets",title:"Tvingande eller dispositiv?",buckets:{"Tvingande":["Konsumentköplagen (konsument köper av företag)","Ångerrätt vid näthandel","Hyresgästens skydd i hyreslagen","Konsumenttjänstlagen"],"Dispositiv":["Köplagen när två privatpersoner handlar","Köplagen mellan två företag","Avtalslagens regler om anbud och accept"]}},
+{id:"s6",topic:"forvaltning",type:"buckets",title:"Allmän domstol eller förvaltningsdomstol?",buckets:{"Allmän domstol":["Stöld (brottmål)","Tvist om en skuld mellan grannar","Vårdnad om barn vid skilsmässa","Skadestånd efter trafikolycka"],"Förvaltningsdomstol":["Skatteverkets beslut om skatt","Försäkringskassan nekar sjukpenning","Kommunen nekar ekonomiskt bistånd","Återkallat körkort"]}},
+{id:"s7",topic:"styrning",type:"buckets",title:"Vem gör vad?",buckets:{"Riksdagen":["Stiftar lagar","Beslutar om skatter och statsbudget","Kan avsätta en minister med misstroendeförklaring"],"Regeringen":["Lägger fram propositioner","Beslutar förordningar","Leder de statliga myndigheterna"],"Myndigheter":["Beslutar i enskilda ärenden, t.ex. bostadsbidrag","Tar in skatt"],"Domstolar":["Dömer i brottmål","Prövar överklagade myndighetsbeslut"],"Kommuner och regioner":["Driver skolor och äldreomsorg","Ansvarar för sjukvården"]}},
+{id:"s8",topic:"norm",type:"buckets",title:"Norm eller lag?",buckets:{"Norm":["Hälsa när man träffar någon","Inte tränga sig i kön","Hålla upp dörren","Tacka för maten"],"Lag":["Köra på höger sida","Inte stjäla","Skolplikt","Betala skatt"]}},
+{id:"s9",topic:"grundlagar",type:"match",title:"Para ihop grundlag och innehåll",pairs:[["Regeringsformen","Hur Sverige styrs och våra fri- och rättigheter"],["Successionsordningen","Tronföljden"],["Tryckfrihetsförordningen","Tryckfrihet och offentlighetsprincipen"],["Yttrandefrihetsgrundlagen","Yttrandefrihet i radio, tv, film och på webben"]]},
+{id:"s10",topic:"rattsstat",type:"match",title:"Rättsstatens principer",pairs:[["Legalitetsprincipen","Makten utövas under lagarna, inget straff utan lag"],["Likhetsprincipen","Myndigheter behandlar alla lika oavsett nationalitet eller utbildning"],["Objektivitetsprincipen","Tjänstemän ska vara sakliga och opartiska och inte ”tycka”"],["Maktdelning","Lagstiftande, verkställande och dömande makt hålls isär"],["Oberoende domstolar","Ingen får styra hur en domstol dömer"],["Likhet inför lagen","Alla behandlas lika"],["Rättssäkerhet","Lagar är tydliga och förutsebara, rätt till försvar och överklagande"]]},
+{id:"s11",topic:"allmanna",type:"match",title:"Principerna vid en rättegång (s. 36–37)",pairs:[["Legalitetsprincipen","Inget straff utan lag och inget brott utan lag"],["Objektivitetsprincipen","Domstolen ska vara saklig och opartisk"],["Muntlighetsprincipen","Utredningar och bevis presenteras muntligt"],["Omedelbarhetsprincipen","Domen grundas bara på det som tas upp under rättegången"],["Koncentrationsprincipen","Rättegången ska vara sammanhängande, inte utdragen"],["Offentlighetsprincipen","Vem som helst får närvara och ta del av handlingarna"],["Oskuldspresumtion","Oskyldig tills skulden är bevisad"]]},
+{id:"s12",topic:"rattskallor",type:"match",title:"Rättskällor",pairs:[["Prejudikat","Vägledande avgörande från högsta instans"],["Praxis","Hur domstolar brukar döma över tid"],["Sedvana","Långvarigt handlingsmönster som uppfattas som bindande"],["Doktrin","Rättsvetenskaplig litteratur"],["Förarbeten","SOU och proposition som visar lagens syfte"]]},
+{id:"s13",topic:"irac",type:"match",title:"IRAC-stegen",pairs:[["Issue","Vilken är den juridiska frågan?"],["Rule","Vilken regel gäller?"],["Application","Hur passar regeln på fakta i fallet?"],["Conclusion","Hur blir det?"]]},
+{id:"s14",topic:"allmanna",type:"order",title:"Instansordning, allmänna domstolar (lägst först)",items:["Tingsrätt","Hovrätt","Högsta domstolen"]}
+];
+
+const OPEN={
+grundlagar:[["Hur ändras en grundlag?",["Två likalydande beslut i riksdagen","Ett allmänt val emellan","Minst nio månader mellan förslag och val","Möjlighet till folkomröstning"]],["Varför är det svårt att ändra en grundlag?",["Skyddar demokratin och rättigheterna","En tillfällig majoritet kan inte ändra snabbt","Väljarna får säga sitt i valet","Tid för debatt och eftertanke"]]],
+rattsstat:[["Vilken betydelse har rättsstatens principer för att säkerställa rättsstaten för alla?",["Skydd mot godtycke och maktmissbruk","Samma regler för alla, även makthavare","Förutsebarhet – man vet vad som gäller","Rätt till rättvis prövning","Skapar förtroende och laglydnad"]]],
+hierarki:[["Förklara rättsordningen och normhierarkin.",["Rättsregler är nedskrivna och beslutade av riksdagen","Sanktion om man bryter mot dem","Grundlagar, riksdagsordningen, lagar, förordningar, föreskrifter","En regel får inte strida mot en högre regel","Lagar + förordningar = författningar"]]],
+styrning:[["Vad innebär representativt och parlamentariskt styrelseskick?",["Ledamöterna är folkvalda representanter (folkrepresentation)","Regeringen måste ha riksdagens förtroende","Riksdagen kan tvinga regeringen att avgå"]],["Hur styrs Sverige – vem gör vad?",["Folket väljer riksdagen","Riksdagen stiftar lagar och granskar regeringen","Regeringen styr och leder myndigheter","Myndigheter verkställer, inget ministerstyre","Domstolar dömer självständigt","Kommuner och regioner har självstyre"]]],
+rattigheter:[["Vad innebär det att vissa fri- och rättigheter är absoluta och andra relativa?",["Absoluta kan inte begränsas ens genom lag","Exempel på absolut rättighet","Relativa kan begränsas genom lag","Villkor: godtagbart ändamål, inte mer än nödvändigt","Exempel på relativ rättighet"]]],
+lagstiftning:[["Beskriv lagstiftningsprocessen.",["Initiativ och direktiv","Utredning (SOU)","Remiss","Lagrådet","Proposition och motioner","Utskott och betänkande","Beslut i riksdagen","SFS"]]],
+tvingande:[["Varför behövs både tvingande och dispositiva lagar?",["Tvingande skyddar den svagare parten","Exempel: konsumentköplagen","Dispositiva respekterar avtalsfriheten","Dispositiva fyller luckor i avtal"]]],
+allmanna:[["Vilka mål och ärenden hanterar de allmänna domstolarna?",["Brottmål","Tvistemål","Domstolsärenden","Exempel på varje"]],["Vilka principer styr domstolarna och vad innebär de?",["Legalitetsprincipen","Objektivitetsprincipen","Muntlighetsprincipen","Omedelbarhetsprincipen","Koncentrationsprincipen","Offentlighetsprincipen (och lyckta dörrar)","Oskuldspresumtion"]]],
+forvaltning:[["Vilka är förvaltningsdomstolarna och vilka mål hanterar de?",["Förvaltningsrätt, kammarrätt, HFD","Enskild mot myndighet","Exempel: skatt, bistånd, sjukpenning, körkort"]]],
+norm:[["Vad är skillnaden mellan en norm och en lag?",["Vem som bestämt regeln","Skriven eller oskriven","Statlig sanktion eller social reaktion","Exempel på båda"]]],
+rattssakerhet:[["Förklara rättsmedvetande och rättssäkerhet.",["Rättsmedvetande: uppfattning om rätt och fel","Rättssäkerhet: förutsebarhet och likabehandling","Rätt till försvar och överklagande","Varför båda behövs"]]],
+irac:[["Förklara IRAC-modellen.",["Issue – frågan","Rule – regeln","Application – tillämpning på fakta","Conclusion – slutsats"]]],
+rattskallor:[["Vad är skillnaden mellan prejudikat och praxis?",["Prejudikat: ett vägledande avgörande från högsta instans","Praxis: samlat mönster av avgöranden","Prejudikat är en del av praxis"]]]
+};
+
+const CASES=[
+{title:"Mobilen för 9 000 kr",text:"Elin är 16 år. Utan att fråga sina föräldrar köper hon en mobil för 9 000 kr i en butik och betalar med pengar hon fått i present. Föräldrarna vill lämna tillbaka mobilen och få pengarna tillbaka. Butiken vägrar.",
+m:["Kan föräldrarna häva köpet och kräva pengarna tillbaka?","Enligt föräldrabalken (9 kap.) får den som är under 18 år (omyndig) inte ingå avtal utan vårdnadshavarens samtycke. Undantag: pengar man själv tjänat genom arbete, och vardagliga småköp.","Elin är 16 och därmed omyndig. Pengarna är presentpengar, inte egen arbetsinkomst. Ett köp för 9 000 kr är inget vardagligt småköp. Föräldrarna gav inget samtycke.","Avtalet är inte bindande. Elin lämnar tillbaka mobilen och butiken måste betala tillbaka pengarna."]},
+{title:"Jackan med trasig dragkedja",text:"Sara köper en vinterjacka i en klädbutik. Efter två månader går dragkedjan sönder trots att hon använt jackan normalt. Butiken säger att hon borde ha klagat direkt.",
+m:["Har Sara rätt att få jackan lagad, utbytt eller pengarna tillbaka?","Konsumentköplagen gäller när en konsument köper av ett företag. Den är tvingande. Är varan felaktig får köparen reklamera inom skälig tid, och reklamation inom två månader från upptäckten är alltid i tid. Fel som visar sig inom två år antas ha funnits vid köpet.","Sara är konsument och butiken ett företag. Dragkedjan gick sönder vid normal användning efter två månader, alltså inom två år. Om hon reklamerar direkt när hon upptäcker felet är det i tid. Butiken kan inte avtala bort reglerna.","Butiken måste i första hand laga eller byta jackan. Går det inte har Sara rätt till prisavdrag eller att häva köpet."]},
+{title:"Begagnade cykeln",text:"Omar köper en begagnad cykel av en privatperson via en annonssajt. I annonsen står ”nyservad, bromsarna fungerar perfekt”. Dagen efter märker Omar att bromsarna knappt fungerar.",
+m:["Kan Omar kräva något av säljaren?","Köplagen gäller mellan privatpersoner. Den är dispositiv. Varan är felaktig om den inte stämmer med uppgifter säljaren lämnat (köplagen 18–19 §§), även om den säljs i befintligt skick.","Säljaren skrev att bromsarna fungerade perfekt. Det stämde inte. Felet upptäcktes direkt och de hade inte avtalat bort köplagens regler om felaktiga uppgifter.","Cykeln är felaktig. Omar kan kräva att felet åtgärdas, prisavdrag eller att häva köpet om felet är väsentligt."]}
+];
+const IRACL=["I – Issue: Vad är frågan?","R – Rule: Vilken regel gäller?","A – Application: Tillämpa regeln på fakta","C – Conclusion: Slutsats"];
+
+/* ===================== LAGRING ===================== */
+const KEY="juridik-elsa-v1";
+let S={cards:{},quiz:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S={cards:s.cards||{},quiz:s.quiz||{}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ===================== HJÄLP ===================== */
+const view=document.getElementById("view"),nav=document.getElementById("nav");
+const tname=id=>(TOPICS.find(t=>t.id===id)||{}).name||id;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function chips(list,active,fn){return `<div class="chips" role="group">${list.map(([id,n])=>`<button class="chip" aria-pressed="${id===active}" data-chip="${id}">${esc(n)}</button>`).join("")}</div>`}
+function bindChips(fn){view.querySelectorAll("[data-chip]").forEach(b=>b.onclick=()=>fn(b.dataset.chip))}
+function mastery(id){
+  const qs=QUIZ.filter(q=>q.topic===id);let r=0,t=0;
+  qs.forEach(q=>{const s=S.quiz[q.q];if(s){r+=s.r;t+=s.r+s.w}});
+  const cs=TERMS.filter(c=>c.topic===id);const known=cs.filter(c=>S.cards[c.t]===2).length;
+  const parts=[];if(t)parts.push(r/t);if(cs.length)parts.push(known/cs.length);
+  return parts.length?Math.round(parts.reduce((a,b)=>a+b,0)/parts.length*100):0;
+}
+
+/* ===================== NAVIGERING ===================== */
+const MODES=[["oversikt","Översikt"],["las","Läs"],["begrepp","Begrepp"],["quiz","Quiz"],["sortera","Sortera"],["irac","IRAC"],["prov","Provläge"]];
+let mode="oversikt";
+function go(m,arg){mode=m;nav.innerHTML=MODES.map(([id,n])=>`<button data-m="${id}" aria-current="${id===m}">${n}</button>`).join("");
+  nav.querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.m));
+  ({oversikt:vOverview,las:vRead,begrepp:vCards,quiz:vQuizStart,sortera:vSortList,irac:vIrac,prov:vExamStart})[m](arg);
+  window.scrollTo({top:0});}
+
+/* ===================== ÖVERSIKT ===================== */
+function vOverview(){
+  const known=TERMS.filter(c=>S.cards[c.t]===2).length;
+  view.innerHTML=`<h2>Hur långt har du kommit?</h2>
+  <p class="muted">Staplarna fylls när du kan begreppen och svarar rätt i quizen. Tryck på ett område för att läsa på.</p>
+  <p><b>${known}</b> av ${TERMS.length} begrepp markerade som ”Kan”.</p>
+  <div>${TOPICS.map(t=>{const m=mastery(t.id);return `<button class="topic" data-t="${t.id}"><span>${esc(t.name)}</span><span><span class="bar"><i style="width:${m}%"></i></span><div class="pct">${m} %</div></span></button>`}).join("")}</div>
+  <div class="row" style="margin-top:20px"><button class="btn" id="startExam">Starta provläge</button><button class="btn ghost" id="reset">Nollställ framsteg</button></div>`;
+  view.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>go("las",b.dataset.t));
+  document.getElementById("startExam").onclick=()=>go("prov");
+  document.getElementById("reset").onclick=()=>{if(confirm("Nollställa alla framsteg?")){S={cards:{},quiz:{}};save();vOverview()}};
+}
+
+/* ===================== LÄS ===================== */
+function vRead(id){
+  id=id||"grundlagar";
+  let body="";
+  if(id==="begrepp"){
+    body=`<h2>Viktiga begrepp</h2><p class="muted">Bokens rödmarkerade ord först, sedan övriga. Träna dem i Begrepp-läget.</p>
+    <h3>Rödmarkerat i boken</h3>${TERMS.filter(c=>c.book).map(c=>`<p><span class="hl">${esc(c.t)}</span> – ${esc(c.d)}</p>`).join("")}<h3>Övriga begrepp</h3>${TERMS.filter(c=>!c.book).sort((a,b)=>a.t.localeCompare(b.t,"sv")).map(c=>`<p><span class="hl">${esc(c.t)}</span> – ${esc(c.d)}</p>`).join("")}`;
+  }else{
+    const r=READ[id];
+    body=`<h2>${esc(tname(id))}</h2>${r.p.map(p=>`<p>${p}</p>`).join("")}
+    <div class="tip"><strong>Inför provet:</strong> ${esc(r.tip)}</div>
+    ${(OPEN[id]||[]).map((o,i)=>`<div class="panel" data-open="${i}"><h3 style="margin-top:0">Förklara med egna ord</h3><p><b>${esc(o[0])}</b></p>
+      <textarea aria-label="Ditt svar"></textarea>
+      <div class="row" style="margin:10px 0"><button class="btn small ghost" data-show="${i}">Visa nyckelpunkter</button></div>
+      <div class="pts" hidden><p class="muted">Bocka av det du fick med:</p>${o[1].map(p=>`<label class="check"><input type="checkbox"><span>${esc(p)}</span></label>`).join("")}</div></div>`).join("")}`;
+  }
+  const hasQ=QUIZ.some(q=>q.topic===id),hasS=SORTS.some(s=>s.topic===id);
+  view.innerHTML=chips(TOPICS.map(t=>[t.id,t.name]),id)+body+
+  `<div class="row" style="margin-top:8px">${hasQ?`<button class="btn" id="toQuiz">Quiz på detta</button>`:""}${hasS?`<button class="btn ghost" id="toSort">Sortera och para ihop</button>`:""}${id==="begrepp"?`<button class="btn" id="toCards">Öva begreppen</button>`:""}${id==="irac"?`<button class="btn ghost" id="toIrac">Till IRAC-verkstaden</button>`:""}</div>`;
+  bindChips(t=>vRead(t));
+  view.querySelectorAll("[data-show]").forEach(b=>b.onclick=()=>{b.closest(".panel").querySelector(".pts").hidden=false;b.remove()});
+  const on=(i,f)=>{const e=document.getElementById(i);if(e)e.onclick=f};
+  on("toQuiz",()=>startQuiz(id,10,false));on("toSort",()=>go("sortera",id));on("toCards",()=>go("begrepp"));on("toIrac",()=>go("irac"));
+}
+
+/* ===================== BEGREPP ===================== */
+let cd=null;
+function vCards(topic){
+  topic=topic||"all";
+  const pool=TERMS.filter(c=>topic==="all"||(topic==="book"?c.book:c.topic===topic));
+  const rank=c=>({0:0,undefined:1,1:1,2:3})[S.cards[c.t]];
+  const deck=shuffle(pool).sort((a,b)=>rank(a)-rank(b));
+  cd={deck,i:0,flip:false,topic};renderCard();
+}
+function renderCard(){
+  const tops=[["all","Alla"],["book","Rödmarkerat i boken"],...TOPICS.filter(t=>TERMS.some(c=>c.topic===t.id)).map(t=>[t.id,t.name])];
+  const pool=cd.deck,known=pool.filter(c=>S.cards[c.t]===2).length;
+  if(cd.i>=pool.length){view.innerHTML=chips(tops,cd.topic)+`<h2>Bra jobbat!</h2><p>Du har gått igenom alla ${pool.length} kort. ${known} markerade som ”Kan”.</p><button class="btn" id="again">Kör igen</button>`;bindChips(vCards);document.getElementById("again").onclick=()=>vCards(cd.topic);return}
+  const c=pool[cd.i];
+  view.innerHTML=chips(tops,cd.topic)+`
+  <p class="muted">Kort ${cd.i+1} av ${pool.length} · ${known} kan du</p>
+  <button class="card" id="card" aria-live="polite">${cd.flip?`<div class="def">${esc(c.d)}</div><div class="ex">${esc(c.t)} · ${esc(tname(c.topic))}</div>`:`${c.book?`<div class="badge">Rödmarkerat i boken</div>`:""}<div class="term"><span>${esc(c.t)}</span></div><div class="hint">Tryck eller mellanslag för att vända</div>`}</button>
+  ${cd.flip?`<div class="rate"><button class="r0" data-r="0">Kan inte</button><button data-r="1">Osäker</button><button class="r2" data-r="2">Kan</button></div>`:`<div class="rate"><button disabled style="opacity:.4">Kan inte</button><button disabled style="opacity:.4">Osäker</button><button disabled style="opacity:.4">Kan</button></div>`}`;
+  bindChips(vCards);
+  document.getElementById("card").onclick=()=>{cd.flip=!cd.flip;renderCard()};
+  view.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>rate(+b.dataset.r));
+}
+function rate(r){const c=cd.deck[cd.i];S.cards[c.t]=r;save();if(r===0&&cd.deck.length-cd.i>3)cd.deck.splice(cd.i+3,0,c);cd.i++;cd.flip=false;renderCard()}
+document.addEventListener("keydown",e=>{if(mode!=="begrepp"||!cd||e.target.tagName==="TEXTAREA")return;
+  if(e.key===" "){e.preventDefault();cd.flip=!cd.flip;renderCard()}
+  else if(cd.flip&&["1","2","3"].includes(e.key))rate(+e.key-1)});
+
+/* ===================== QUIZ ===================== */
+let qz=null;
+function vQuizStart(topic){
+  topic=topic||"all";
+  const tops=[["all","Alla områden"],...TOPICS.filter(t=>QUIZ.some(q=>q.topic===t.id)).map(t=>[t.id,t.name])];
+  const n=QUIZ.filter(q=>topic==="all"||q.topic===topic).length;
+  view.innerHTML=`<h2>Quiz</h2><p class="muted">Välj område. Du får förklaringen direkt efter varje svar.</p>`+chips(tops,topic)+
+  `<p>${n} frågor finns i ${topic==="all"?"alla områden":"det här området"}.</p><button class="btn" id="go">Starta quiz</button>`;
+  bindChips(vQuizStart);document.getElementById("go").onclick=()=>startQuiz(topic,10,false);
+}
+function startQuiz(topic,n,exam){
+  mode=exam?"prov":"quiz";
+  nav.querySelectorAll("button").forEach(b=>b.setAttribute("aria-current",b.dataset.m===mode));
+  const pool=shuffle(QUIZ.filter(q=>topic==="all"||q.topic===topic)).slice(0,n);
+  qz={list:pool.map(q=>{const order=shuffle(q.a.map((_,i)=>i));return{...q,order}}),i:0,score:0,res:[],exam,topic};renderQ();
+}
+function renderQ(){
+  const q=qz.list[qz.i];
+  view.innerHTML=`<div class="progress"><i style="width:${qz.i/qz.list.length*100}%"></i></div>
+  <p class="muted">Fråga ${qz.i+1} av ${qz.list.length} · ${esc(tname(q.topic))}</p>
+  <h2>${esc(q.q)}</h2><div id="opts">${q.order.map(i=>`<button class="opt" data-i="${i}">${esc(q.a[i])}</button>`).join("")}</div><div id="fb"></div>`;
+  view.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i));
+}
+function answer(i){
+  const q=qz.list[qz.i],ok=i===q.c;
+  view.querySelectorAll(".opt").forEach(b=>{b.disabled=true;const k=+b.dataset.i;if(k===q.c)b.classList.add("right");else if(k===i)b.classList.add("wrong")});
+  const s=S.quiz[q.q]||{r:0,w:0};ok?s.r++:s.w++;S.quiz[q.q]=s;save();
+  if(ok)qz.score++;qz.res.push({topic:q.topic,ok});
+  document.getElementById("fb").innerHTML=`<div class="why"><b>${ok?"Rätt!":"Inte riktigt."}</b> ${q.why?esc(q.why):(ok?"":"Rätt svar: "+esc(q.a[q.c])+".")}</div>
+  <button class="btn" id="next">${qz.i+1<qz.list.length?"Nästa fråga":"Se resultat"}</button>`;
+  const nx=document.getElementById("next");nx.focus();nx.onclick=()=>{qz.i++;qz.i<qz.list.length?renderQ():renderResult()};
+}
+function renderResult(){
+  const by={};qz.res.forEach(r=>{by[r.topic]=by[r.topic]||{r:0,t:0};by[r.topic].t++;if(r.ok)by[r.topic].r++});
+  const weak=Object.entries(by).filter(([,v])=>v.r/v.t<.7).map(([k])=>k);
+  view.innerHTML=`<h2>${qz.exam?"Provresultat":"Resultat"}</h2>
+  <p><span class="big">${qz.score}</span> <span class="muted">av ${qz.list.length} rätt</span></p>
+  ${qz.exam||Object.keys(by).length>1?`<table><thead><tr><th>Område</th><th>Rätt</th></tr></thead><tbody>${Object.entries(by).map(([k,v])=>`<tr><td>${esc(tname(k))}</td><td>${v.r} / ${v.t}</td></tr>`).join("")}</tbody></table>`:""}
+  ${weak.length?`<div class="tip"><strong>Läs på extra:</strong> ${weak.map(k=>`<button class="chip" data-w="${k}">${esc(tname(k))}</button>`).join(" ")}</div>`:`<p>Snyggt, inga svaga områden den här gången.</p>`}
+  <div class="row"><button class="btn" id="again">${qz.exam?"Nytt prov":"Ny omgång"}</button><button class="btn ghost" id="home">Till översikten</button></div>`;
+  view.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>go("las",b.dataset.w));
+  document.getElementById("again").onclick=()=>qz.exam?go("prov"):startQuiz(qz.topic,10,false);
+  document.getElementById("home").onclick=()=>go("oversikt");
+}
+
+/* ===================== PROVLÄGE ===================== */
+function vExamStart(){
+  view.innerHTML=`<h2>Provläge</h2><p>Blandade frågor från alla områden. Ingen hjälp på vägen, men förklaringen visas efter varje svar. Efteråt ser du resultatet per område och vad du bör läsa på.</p>
+  <div class="row"><button class="btn" data-n="15">15 frågor</button><button class="btn ghost" data-n="30">30 frågor</button></div>
+  <h3>Skrivfrågor</h3><p class="muted">På provet kommer troligen frågor där du ska förklara. Öva dem under Läs, varje område har ”Förklara med egna ord”.</p>`;
+  view.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>startQuiz("all",+b.dataset.n,true));
+}
+
+/* ===================== SORTERA ===================== */
+function vSortList(topic){
+  const list=SORTS.filter(s=>!topic||s.topic===topic);
+  const lbl={order:"Ordna i rätt ordning",buckets:"Sortera i grupper",match:"Para ihop"};
+  view.innerHTML=`<h2>Sortera och para ihop</h2>${topic?`<p><button class="chip" id="all">Visa alla övningar</button></p>`:""}
+  <div class="list">${list.map(s=>`<button class="item" data-s="${s.id}">${esc(s.title)}<small>${lbl[s.type]} · ${esc(tname(s.topic))}</small></button>`).join("")}</div>`;
+  const a=document.getElementById("all");if(a)a.onclick=()=>vSortList();
+  view.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>openSort(SORTS.find(s=>s.id===b.dataset.s)));
+}
+function sortHead(s){return `<p><button class="chip" id="back">Alla övningar</button></p><h2>${esc(s.title)}</h2>`}
+function openSort(s){({order:sOrder,buckets:sBuckets,match:sMatch})[s.type](s)}
+function sOrder(s){
+  let arr=shuffle(s.items);if(arr.join()===s.items.join())arr=arr.reverse();let checked=false;
+  const draw=()=>{view.innerHTML=sortHead(s)+`<p class="muted">Flytta raderna med pilarna.</p>
+  ${arr.map((t,i)=>`<div class="ord ${checked?(t===s.items[i]?"right":"wrong"):""}"><span class="n">${i+1}</span><span class="t">${esc(t)}</span><button aria-label="Flytta upp" data-u="${i}">↑</button><button aria-label="Flytta ner" data-d="${i}">↓</button></div>`).join("")}
+  <div class="row" style="margin-top:14px"><button class="btn" id="chk">Rätta</button><button class="btn ghost" id="sol">Visa facit</button><button class="btn ghost" id="rs">Blanda om</button></div><p id="msg" style="margin-top:12px"></p>`;
+  view.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const i=+b.dataset.u;if(i>0){[arr[i-1],arr[i]]=[arr[i],arr[i-1]];checked=false;draw()}});
+  view.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const i=+b.dataset.d;if(i<arr.length-1){[arr[i+1],arr[i]]=[arr[i],arr[i+1]];checked=false;draw()}});
+  document.getElementById("chk").onclick=()=>{checked=true;draw();const n=arr.filter((t,i)=>t===s.items[i]).length;document.getElementById("msg").textContent=n===arr.length?"Helt rätt!":`${n} av ${arr.length} på rätt plats.`};
+  document.getElementById("sol").onclick=()=>{arr=s.items.slice();checked=true;draw()};
+  document.getElementById("rs").onclick=()=>sOrder(s);
+  document.getElementById("back").onclick=()=>vSortList();};draw();
+}
+function sBuckets(s){
+  const names=Object.keys(s.buckets),ans={};names.forEach(b=>s.buckets[b].forEach(t=>ans[t]=b));
+  const items=shuffle(Object.keys(ans));const place={};let sel=null,checked=false;
+  const draw=()=>{const pool=items.filter(t=>!place[t]);
+  view.innerHTML=sortHead(s)+`<p class="muted">Tryck på ett påstående och sedan på rätt grupp. Tryck på ett placerat påstående för att flytta tillbaka det.</p>
+  <div class="pool">${pool.length?pool.map(t=>`<button class="tok ${sel===t?"sel":""}" data-p="${esc(t)}">${esc(t)}</button>`).join(""):`<span class="muted">Alla placerade. Tryck på Rätta.</span>`}</div>
+  <div class="buckets">${names.map(b=>`<div class="bucket ${sel?"target":""}" data-b="${esc(b)}" role="button" tabindex="0"><b>${esc(b)}</b>${items.filter(t=>place[t]===b).map(t=>`<button class="tok ${checked?(ans[t]===b?"right":"wrong"):""}" data-x="${esc(t)}">${esc(t)}</button>`).join("")}</div>`).join("")}</div>
+  <div class="row"><button class="btn" id="chk">Rätta</button><button class="btn ghost" id="sol">Visa facit</button><button class="btn ghost" id="rs">Börja om</button></div><p id="msg" style="margin-top:12px"></p>`;
+  view.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{sel=sel===b.dataset.p?null:b.dataset.p;draw()});
+  view.querySelectorAll("[data-b]").forEach(b=>{const f=()=>{if(sel){place[sel]=b.dataset.b;sel=null;checked=false;draw()}};b.onclick=f;b.onkeydown=e=>{if(e.key==="Enter")f()}});
+  view.querySelectorAll("[data-x]").forEach(b=>b.onclick=e=>{e.stopPropagation();delete place[b.dataset.x];checked=false;draw()});
+  document.getElementById("chk").onclick=()=>{checked=true;draw();const placed=items.filter(t=>place[t]);const n=placed.filter(t=>place[t]===ans[t]).length;document.getElementById("msg").textContent=`${n} av ${items.length} rätt${placed.length<items.length?` (${items.length-placed.length} kvar att placera)`:""}.`};
+  document.getElementById("sol").onclick=()=>{items.forEach(t=>place[t]=ans[t]);checked=true;sel=null;draw()};
+  document.getElementById("rs").onclick=()=>sBuckets(s);
+  document.getElementById("back").onclick=()=>vSortList();};draw();
+}
+function sMatch(s){
+  const opts=shuffle(s.pairs.map(p=>p[1]));const pick={};let checked=false;
+  const draw=()=>{view.innerHTML=sortHead(s)+`<p class="muted">Välj rätt beskrivning till varje begrepp.</p>
+  ${s.pairs.map(([l,r],i)=>`<div class="match ${checked?(pick[i]===r?"right":"wrong"):""}"><b>${esc(l)}</b><select data-i="${i}"><option value="">Välj…</option>${opts.map(o=>`<option ${pick[i]===o?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`).join("")}
+  <div class="row" style="margin-top:14px"><button class="btn" id="chk">Rätta</button><button class="btn ghost" id="sol">Visa facit</button></div><p id="msg" style="margin-top:12px"></p>`;
+  view.querySelectorAll("select").forEach(x=>x.onchange=()=>{pick[x.dataset.i]=x.value;checked=false;x.parentElement.classList.remove("right","wrong")});
+  document.getElementById("chk").onclick=()=>{checked=true;draw();const n=s.pairs.filter((p,i)=>pick[i]===p[1]).length;document.getElementById("msg").textContent=n===s.pairs.length?"Helt rätt!":`${n} av ${s.pairs.length} rätt.`};
+  document.getElementById("sol").onclick=()=>{s.pairs.forEach((p,i)=>pick[i]=p[1]);checked=true;draw()};
+  document.getElementById("back").onclick=()=>vSortList();};draw();
+}
+
+/* ===================== IRAC ===================== */
+function vIrac(ci){
+  ci=+ci||0;const c=CASES[ci];
+  view.innerHTML=`<h2>IRAC-verkstaden</h2>
+  <div class="irac"><b>I</b><span><b>Issue</b> – vad är den juridiska frågan?</span><b>R</b><span><b>Rule</b> – vilken regel gäller?</span><b>A</b><span><b>Application</b> – tillämpa regeln på fakta i fallet</span><b>C</b><span><b>Conclusion</b> – hur blir det?</span></div>
+  ${chips(CASES.map((x,i)=>[String(i),x.title]),String(ci))}
+  <div class="case"><b>${esc(c.title)}</b><br>${esc(c.text)}</div>
+  <div id="steps">${IRACL.map((l,i)=>`<div class="step"><div class="lbl">${esc(l)}</div><textarea aria-label="${esc(l)}"></textarea><div class="model"><b>Modellsvar:</b> ${esc(c.m[i])}</div></div>`).join("")}</div>
+  <div class="row"><button class="btn" id="show">Visa modellsvar</button></div>
+  <p class="muted" style="margin-top:14px">Jämför: fick du med rätt lag? Kopplade du varje del av regeln till något i fallet?</p>`;
+  bindChips(i=>vIrac(i));
+  document.getElementById("show").onclick=e=>{document.getElementById("steps").classList.add("show");e.target.remove()};
+}
+
+go("oversikt");
+</script>
+</body>
+</html>
